@@ -26,6 +26,9 @@ public struct WebView {
     private var allowsOpaqueDrawing = true
     private var isRefreshable = false
 
+    private var allowsMagnification = false
+    private var autoresizesSubviews = true
+
     /// Creates new WebView.
     /// - Parameters:
     ///   - request: The initial request specifying the URL to load.
@@ -120,6 +123,24 @@ public struct WebView {
         return modified
     }
 
+    /// A Boolean value that indicates whether magnify gestures change the web view’s magnification.
+    ///
+    /// The default value is false.
+    public func allowsMagnification(_ enabled: Bool) -> Self {
+        var modified = self
+        modified.allowsMagnification = enabled
+        return modified
+    }
+
+    /// When set to true, the receiver adjusts the size of its subviews when its bounds change.
+    ///
+    /// The default value is true.
+    public func autoresizesSubviews(_ enabled: Bool) -> Self {
+        var modified = self
+        modified.autoresizesSubviews = enabled
+        return modified
+    }
+
     @MainActor
     func applyModifiers(to webView: EnhancedWKWebView) {
         webView.uiDelegate = uiDelegate
@@ -130,6 +151,9 @@ public struct WebView {
         webView.allowsScrollViewBounces = allowsScrollViewBounces
         webView.allowsOpaqueDrawing = allowsOpaqueDrawing
         webView.isRefreshable = isRefreshable
+
+        webView.allowsMagnification = allowsMagnification
+        webView.autoresizesSubviews = autoresizesSubviews
     }
 
     @MainActor
