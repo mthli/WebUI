@@ -28,6 +28,7 @@ public struct WebView {
 
     private var allowsMagnification = false
     private var autoresizesSubviews = true
+    private var customUserAgent: String? = nil
 
     /// Creates new WebView.
     /// - Parameters:
@@ -141,6 +142,13 @@ public struct WebView {
         return modified
     }
 
+    /// The custom user agent string or nil if no custom user agent string has been set.
+    public func customUserAgent(_ ua: String?) -> Self {
+        var modified = self
+        modified.customUserAgent = ua
+        return modified
+    }
+
     @MainActor
     func applyModifiers(to webView: EnhancedWKWebView) {
         webView.uiDelegate = uiDelegate
@@ -154,6 +162,7 @@ public struct WebView {
 
         webView.allowsMagnification = allowsMagnification
         webView.autoresizesSubviews = autoresizesSubviews
+        webView.customUserAgent = customUserAgent
     }
 
     @MainActor
