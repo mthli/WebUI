@@ -135,6 +135,11 @@ public final class WebViewProxy: ObservableObject {
         webView?.wrappedValue.reload()
     }
 
+    /// Stops loading all resources on the current page.
+    public func stopLoading() {
+        webView?.wrappedValue.stopLoading()
+    }
+
     /// Navigates to the back item in the back-forward list.
     public func goBack() {
         webView?.wrappedValue.goBack()
